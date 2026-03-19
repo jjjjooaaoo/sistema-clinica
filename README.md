@@ -70,3 +70,9 @@ Execute o frontend:
 npm run dev
 
 O frontend irá rodar em http://localhost:5173.
+
+Links de Deploy
+
+Frontend (Vercel): https://sistema-clinica-gamma.vercel.app/
+
+Backend (Render): https://sistema-clinica-3ex8.onrender.com
