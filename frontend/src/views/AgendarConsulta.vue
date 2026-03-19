@@ -1,5 +1,5 @@
 <script>
-import axios from "axios"
+import api from "../services/api"
 
 export default {
   data() {
@@ -36,8 +36,8 @@ export default {
 
         const token = localStorage.getItem("token")
 
-        await axios.post(
-          `${process.env.VUE_APP_API_URL}/consulta/consultas`,
+        await api.post(
+          "/consulta",
           {
             paciente: this.paciente,
             data: this.data,
@@ -46,7 +46,6 @@ export default {
           },
           {
             headers: {
-              
               Authorization: `Bearer ${token}`
             }
           }
