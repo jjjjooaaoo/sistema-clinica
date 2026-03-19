@@ -14,6 +14,10 @@ const routes = [
     component: AgendarConsulta
   },
   {
+    path: "/agendar",
+    component: AgendarConsulta
+  },
+  {
     path: "/admin",
     component: Admin
   }
