@@ -7,10 +7,13 @@ const {
   listar
 } = require("../controllers/consultaController")
 
+const authMiddleware = require("../middlewares/auth") // <-- middleware JWT
 
-router.get("/", listar)
-router.post("/", agendar)
+// Rotas protegidas
+router.get("/", authMiddleware, listar)  
+router.post("/", authMiddleware, agendar) 
 
+// Rota pública para buscar CEP
 router.get("/cep/:cep", buscarCep)
 
 module.exports = router

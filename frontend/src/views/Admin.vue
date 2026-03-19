@@ -32,22 +32,30 @@ export default {
   methods: {
     async carregarConsultas() {
       try {
-
+        // Pega o token salvo no localStorage
         const token = localStorage.getItem("token")
+        if (!token) {
+          alert("Você precisa estar logado para acessar as consultas")
+          return
+        }
 
+        // Faz a requisição para o backend enviando o token
         const res = await axios.get(
           `${process.env.VUE_APP_API_URL}/consulta/consultas`,
           {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
           }
         )
 
+        // Atualiza o array de consultas
         this.consultas = res.data
 
       } catch (error) {
-
         console.error("Erro ao buscar consultas:", error)
 
+        // Mensagem amigável para o usuário
         alert(error.response?.data?.msg || "Erro ao buscar consultas")
       }
     }
