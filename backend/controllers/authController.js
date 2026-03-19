@@ -33,7 +33,7 @@ exports.login = async (req,res)=>{
   if(!senhaValida)
     return res.status(401).json({msg:"Senha inválida"})
 
-  const token = jwt.sign({id:user._id},"segredo")
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
 
   res.json({token})
 }

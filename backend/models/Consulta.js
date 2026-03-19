@@ -6,6 +6,7 @@ const ConsultaSchema = new mongoose.Schema({
   hora: String,
   cep: String,
   endereco: String,
+  cidade: String,
   clima: String
 })
 

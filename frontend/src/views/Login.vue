@@ -22,7 +22,7 @@
 
 <script>
 import axios from "axios"
-import router from "@/router" // se você estiver usando Vue Router
+import router from "@/router"
 
 export default {
   data() {
@@ -48,16 +48,16 @@ export default {
           }
         )
 
-        // Salva token no localStorage
+        
         localStorage.setItem("token", res.data.token)
 
         alert("Login realizado com sucesso!")
 
-        // Limpa campos
+      
         this.email = ""
         this.senha = ""
 
-        // Redireciona para a página de admin
+        
         router.push("/admin")
 
       } catch (error) {

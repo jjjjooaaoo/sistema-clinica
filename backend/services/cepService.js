@@ -4,7 +4,6 @@ async function buscarEndereco(cep) {
 
   try {
 
-    // validação do CEP
     if (!cep || cep.length !== 8) {
       throw new Error("CEP inválido")
     }
