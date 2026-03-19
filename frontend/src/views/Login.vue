@@ -1,11 +1,19 @@
 <template>
-  <div>
+  <div class="login-container">
     <h2>Login</h2>
 
-    <input v-model="email" placeholder="Email" />
+    <input
+      v-model="email"
+      type="email"
+      placeholder="Email"
+    />
     <br /><br />
 
-    <input v-model="senha" type="password" placeholder="Senha" />
+    <input
+      v-model="senha"
+      type="password"
+      placeholder="Senha"
+    />
     <br /><br />
 
     <button @click="login">Entrar</button>
@@ -14,6 +22,7 @@
 
 <script>
 import axios from "axios"
+import router from "@/router" // se você estiver usando Vue Router
 
 export default {
   data() {
@@ -26,25 +35,56 @@ export default {
   methods: {
     async login() {
       try {
+        if (!this.email || !this.senha) {
+          alert("Preencha todos os campos")
+          return
+        }
 
         const res = await axios.post(
-          `${process.env.VUE_APP_API_URL}/auth/login`, 
+          `${process.env.VUE_APP_API_URL}/auth/login`,
           {
             email: this.email,
             senha: this.senha
           }
         )
 
+        // Salva token no localStorage
         localStorage.setItem("token", res.data.token)
 
         alert("Login realizado com sucesso!")
 
+        // Limpa campos
+        this.email = ""
+        this.senha = ""
+
+        // Redireciona para a página de admin
+        router.push("/admin")
+
       } catch (error) {
-
+        console.error("Erro no login:", error.response?.data || error)
         alert(error.response?.data?.msg || "Erro no login")
-
       }
     }
   }
 }
 </script>
+
+<style scoped>
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+</style>
