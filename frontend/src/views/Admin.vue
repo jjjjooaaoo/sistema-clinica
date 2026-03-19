@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import api from "../services/api"
 
 export default {
   data() {
@@ -40,8 +40,8 @@ export default {
         }
 
         // Faz a requisição para o backend enviando o token
-        const res = await axios.get(
-          `${process.env.VUE_APP_API_URL}/consulta`,
+        const res = await api.get(
+          "/consulta",
           {
             headers: {
               Authorization: `Bearer ${token}`
