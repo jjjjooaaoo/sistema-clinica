@@ -43,9 +43,7 @@ export default {
 
         if (this.cep.length !== 8) return
 
-        const res = await axios.get(
-          `https://sistema-clinica-3ex8.onrender.com/consulta/cep/${this.cep}`
-        )
+        const res = await api.get(`/consulta/cep/${this.cep}`)
 
         
         this.endereco = `${res.data.rua} - ${res.data.cidade}`
