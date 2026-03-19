@@ -51,7 +51,7 @@ exports.buscarCep = async (req, res) => {
     const endereco = await buscarEndereco(cep)
 
     res.json({
-      rua: endereco.rua,
+      endereco: endereco.rua,
       cidade: endereco.cidade
     })
 
