@@ -41,7 +41,7 @@ export default {
 
         // Faz a requisição para o backend enviando o token
         const res = await axios.get(
-          `${process.env.VUE_APP_API_URL}/consulta/consultas`,
+          `${process.env.VUE_APP_API_URL}/consulta`,
           {
             headers: {
               Authorization: `Bearer ${token}`
