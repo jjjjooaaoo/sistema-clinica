@@ -40,7 +40,6 @@ backend: API Node.js + MongoDB
 
 ### Backend
 1. Instale dependências:
-```bash
 cd backend
 npm install
 
