@@ -40,26 +40,19 @@ export default {
           return
         }
 
-        const res = await axios.post(
-          `${process.env.VUE_APP_API_URL}/auth/login`,
-          {
-            email: this.email,
-            senha: this.senha
-          }
-        )
+        // Importa o objeto api do services/api.js
+        const api = (await import('../services/api')).default
 
-        
+        const res = await api.post('/auth/login', {
+          email: this.email,
+          senha: this.senha
+        })
+
         localStorage.setItem("token", res.data.token)
-
         alert("Login realizado com sucesso!")
-
-      
         this.email = ""
         this.senha = ""
-
-        
         router.push("/admin")
-
       } catch (error) {
         console.error("Erro no login:", error.response?.data || error)
         alert(error.response?.data?.msg || "Erro no login")
