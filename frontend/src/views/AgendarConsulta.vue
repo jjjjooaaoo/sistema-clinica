@@ -1,27 +1,3 @@
-<template>
-  <div>
-    <h2>Agendar Consulta</h2>
-
-    <input v-model="paciente" placeholder="Nome do paciente" />
-    <br /><br />
-
-    <input v-model="data" type="date" />
-    <br /><br />
-
-    <input v-model="hora" type="time" />
-    <br /><br />
-
-    <input v-model="cep" placeholder="CEP" @blur="buscarCep" />
-    <br /><br />
-
-    <p v-if="endereco">Endereço: {{ endereco }}</p>
-
-    <br />
-
-    <button @click="agendar">Agendar</button>
-  </div>
-</template>
-
 <script>
 import axios from "axios"
 
@@ -44,10 +20,11 @@ export default {
         if (this.cep.length !== 8) return
 
         const res = await axios.get(
-          `http://localhost:5000/consulta/cep/${this.cep}`
+          `https://sistema-clinica-3ex8.onrender.com/consulta/cep/${this.cep}`
         )
 
-        this.endereco = res.data.endereco
+        
+        this.endereco = `${res.data.rua} - ${res.data.cidade}`
 
       } catch (error) {
         console.log("Erro ao buscar CEP")
@@ -60,7 +37,7 @@ export default {
         const token = localStorage.getItem("token")
 
         await axios.post(
-          "http://localhost:5000/consulta",
+          `${process.env.VUE_APP_API_URL}/consulta/consultas`,
           {
             paciente: this.paciente,
             data: this.data,
@@ -69,7 +46,8 @@ export default {
           },
           {
             headers: {
-              Authorization: token
+              
+              Authorization: `Bearer ${token}`
             }
           }
         )

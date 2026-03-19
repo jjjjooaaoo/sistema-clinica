@@ -28,7 +28,7 @@ export default {
       try {
 
         const res = await axios.post(
-          "http://localhost:5000/auth/login", // 🔥 corrigido
+          `${process.env.VUE_APP_API_URL}/auth/login`, 
           {
             email: this.email,
             senha: this.senha

@@ -66,13 +66,17 @@ exports.buscarCep = async (req, res) => {
 exports.listar = async (req, res) => {
   try {
 
+    console.log("Buscando consultas...")
+
     const consultas = await Consulta.find()
+
+    console.log("Consultas encontradas:", consultas)
 
     res.json(consultas)
 
   } catch (error) {
 
-    console.error(error)
+    console.error("ERRO REAL:", error)
 
     res.status(500).json({
       msg: "Erro ao buscar consultas"

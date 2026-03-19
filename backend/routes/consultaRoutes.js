@@ -1,10 +1,16 @@
 const express = require("express")
 const router = express.Router()
 
-const { agendar, buscarCep, listar } = require("../controllers/consultaController")
+const {
+  agendar,
+  buscarCep,
+  listar
+} = require("../controllers/consultaController")
 
+
+router.get("/", listar)
 router.post("/", agendar)
-router.get("/", listar) 
+
 router.get("/cep/:cep", buscarCep)
 
 module.exports = router

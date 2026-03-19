@@ -12,8 +12,12 @@ app.use(express.json())
 
 // Conexão com MongoDB
 mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log("MongoDB conectado"))
-.catch(err => console.log(err))
+.then(() => {
+  console.log("MongoDB conectado")
+})
+.catch(err => {
+  console.log("ERRO REAL DO MONGO:")
+  console.log(err)
 
 // Rotas
 const authRoutes = require("./routes/authRoutes")

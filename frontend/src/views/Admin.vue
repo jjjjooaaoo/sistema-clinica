@@ -33,7 +33,14 @@ export default {
     async carregarConsultas() {
       try {
 
-        const res = await axios.get("http://localhost:5000/consulta")
+        const token = localStorage.getItem("token")
+
+        const res = await axios.get(
+          `${process.env.VUE_APP_API_URL}/consulta/consultas`,
+          {
+            headers: { Authorization: `Bearer ${token}` }
+          }
+        )
 
         this.consultas = res.data
 
@@ -41,6 +48,7 @@ export default {
 
         console.error("Erro ao buscar consultas:", error)
 
+        alert(error.response?.data?.msg || "Erro ao buscar consultas")
       }
     }
   }
