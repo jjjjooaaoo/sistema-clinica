@@ -6,6 +6,8 @@
       v-model="email"
       type="email"
       placeholder="Email"
+      name="email"
+      id="login-email"
     />
     <br /><br />
 
@@ -13,6 +15,8 @@
       v-model="senha"
       type="password"
       placeholder="Senha"
+      name="senha"
+      id="login-senha"
     />
     <br /><br />
 

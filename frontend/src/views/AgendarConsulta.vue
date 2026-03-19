@@ -1,3 +1,27 @@
+<template>
+  <div class="agendar-container">
+    <h2>Agendar Consulta</h2>
+    <form @submit.prevent="agendar">
+      <label for="paciente">Nome do Paciente:</label>
+      <input v-model="paciente" type="text" name="paciente" id="paciente" required />
+      <br /><br />
+      <label for="data">Data:</label>
+      <input v-model="data" type="date" name="data" id="data" required />
+      <br /><br />
+      <label for="hora">Hora:</label>
+      <input v-model="hora" type="time" name="hora" id="hora" required />
+      <br /><br />
+      <label for="cep">CEP:</label>
+      <input v-model="cep" type="text" name="cep" id="cep" maxlength="8" @blur="buscarCep" required />
+      <br /><br />
+      <div v-if="endereco">
+        <strong>Endereço:</strong> {{ endereco }}
+      </div>
+      <br />
+      <button type="submit">Agendar</button>
+    </form>
+  </div>
+</template>
 <script>
 import api from "../services/api"
 
