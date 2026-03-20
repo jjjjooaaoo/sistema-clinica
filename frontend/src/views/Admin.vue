@@ -25,10 +25,17 @@ import api from "../services/api"
 export default {
   data() {
     return {
-      consultas: []
+      consultas: [],
+      userTipo: ""
     }
   },
-
+  created() {
+    this.userTipo = localStorage.getItem("userTipo") || ""
+    if (this.userTipo !== "secretario") {
+      alert("Acesso negado: apenas secretários podem acessar o painel")
+      this.$router.push("/agendar")
+    }
+  },
   methods: {
     async carregarConsultas() {
       try {

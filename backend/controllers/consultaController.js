@@ -1,4 +1,5 @@
 const Consulta = require("../models/Consulta")
+const User = require("../models/User")
 const { buscarEndereco } = require("../services/cepService")
 const { buscarClima } = require("../services/climaService")
 
@@ -15,6 +16,12 @@ exports.agendar = async (req, res) => {
     const endereco = await buscarEndereco(cep)
 
     const climaConsulta = await buscarClima(endereco.cidade)
+
+    // Verifica se já existe consulta no mesmo dia/hora
+    const consultaExistente = await Consulta.findOne({ data, hora })
+    if (consultaExistente) {
+      return res.status(400).json({ msg: "Horário já agendado" })
+    }
 
     const consulta = new Consulta({
       paciente,
@@ -65,13 +72,15 @@ exports.buscarCep = async (req, res) => {
 
 exports.listar = async (req, res) => {
   try {
+    const user = await User.findById(req.user.id)
+    if (!user) return res.status(401).json({ msg: "Usuário não encontrado" })
+    if (user.tipo !== "secretario") {
+      return res.status(403).json({ msg: "Acesso negado: apenas secretários" })
+    }
 
     console.log("Buscando consultas...")
-
     const consultas = await Consulta.find()
-
     console.log("Consultas encontradas:", consultas)
-
     res.json(consultas)
 
   } catch (error) {

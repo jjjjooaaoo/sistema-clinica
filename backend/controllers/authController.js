@@ -3,19 +3,18 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
 exports.register = async (req, res) => {
-
-  const { nome, email, senha } = req.body
+  const { nome, email, senha, tipo } = req.body
 
   const senhaHash = await bcrypt.hash(senha, 10)
 
   const user = new User({
     nome,
     email,
-    senha: senhaHash
+    senha: senhaHash,
+    tipo: tipo || "paciente"
   })
 
   await user.save()
-
   res.json({ msg: "Usuário criado" })
 }
 
@@ -33,7 +32,7 @@ exports.login = async (req,res)=>{
   if(!senhaValida)
     return res.status(401).json({msg:"Senha inválida"})
 
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+  const token = jwt.sign({ id: user._id, tipo: user.tipo }, process.env.JWT_SECRET)
 
-  res.json({token})
+  res.json({ token })
 }

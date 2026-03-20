@@ -51,11 +51,19 @@ export default {
           senha: this.senha
         })
 
-        localStorage.setItem("token", res.data.token)
+        const token = res.data.token
+        localStorage.setItem("token", token)
+        const payload = JSON.parse(atob(token.split(".")[1]))
+        const tipo = payload.tipo || "paciente"
+        localStorage.setItem("userTipo", tipo)
         alert("Login realizado com sucesso!")
         this.email = ""
         this.senha = ""
-        router.push("/admin")
+        if (tipo === "secretario") {
+          router.push("/admin")
+        } else {
+          router.push("/agendar")
+        }
       } catch (error) {
         console.error("Erro no login:", error.response?.data || error)
         alert(error.response?.data?.msg || "Erro no login")
