@@ -76,3 +76,11 @@ Links de Deploy
 Frontend (Vercel): https://sistema-clinica-gamma.vercel.app/
 
 Backend (Render): https://sistema-clinica-3ex8.onrender.com
+
+## Credenciais de teste
+- Paciente:
+  - Email: paciente@teste.com
+  - Senha: 123456
+- Secretário:
+  - Email: secretario@teste.com
+  - Senha: 123456
